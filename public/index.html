@@ -1,13 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="buzzmonitor">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Buzzmonitor - Admin</title>
+    <title>Buzzmonitor</title>
+
+    <link rel="stylesheet" href="css/application.css">
+
+    <link rel="shortcut icon" type="image/x-icon" href="//s3.amazonaws.com/bm3assets/assets/others/favicon-0fec60841030d9a6ee786e7a9cf75be901a26535a82adb3caddca78d6411df94.ico" />
+    <link rel="shortcut icon" type="image/png" href="//s3.amazonaws.com/bm3assets/assets/others/favicon-16x16-fe9abd4eb3e7af151686b68eda5e8b75a4f4facfe564460ee359563fe44a0838.png"
+        sizes="16x16" />
+    <link rel="shortcut icon" type="image/png" href="//s3.amazonaws.com/bm3assets/assets/others/favicon-32x32-86a1eaf0a1033cb61ce4e191d19fc9a00acc372ac2b9934ba3fe8f670283d198.png"
+        sizes="32x32" />
+    <link rel="shortcut icon" type="image/png" href="//s3.amazonaws.com/bm3assets/assets/others/favicon-96x96-92a9abb7f1b4af912ca5bab25031106455f90f94f32b47b2fa0321730d2c5130.png"
+        sizes="96x96" />
+    <link rel="apple-touch-icon" type="image/png" href="//s3.amazonaws.com/bm3assets/assets/others/apple-icon-7619d8512d57da99553241b51fd78e67a114d70be282b601ca549a7c18a30c26.png" />
+    <link rel="apple-touch-icon" type="image/png" href="//s3.amazonaws.com/bm3assets/assets/others/apple-icon-72x72-c0892ae4761ae4c1be36ec6e9006ee713c8e2d2c1303fe2bff25a708d8a65a0e.png"
+        sizes="72x72" />
+    <link rel="apple-touch-icon" type="image/png" href="//s3.amazonaws.com/bm3assets/assets/others/apple-icon-114x114-e9b80c1f03c7fffdb5e29ce02b1dc6b2a112c97e8475410b3c535ae3f2ee1ab2.png"
+        sizes="114x114" />
 </head>
+
 <body>
-    <h1>Buzzmonitor Admin</h1>
-    
+
+    <toolbar-element></toolbar-element>
+
+    <div>
+
+        <div ng-view></div>
+
+    </div>
+        
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/angular/angular.min.js"></script>
+    <script src="node_modules/angular-route/angular-route.min.js"></script>
+    <script src="node_modules/ngstorage/ngStorage.min.js"></script>
+
+    <script src="app/app.js"></script>
+    <script src="app/partials/partials.js"></script>
+
+    <script src="app/components/admin_tools/adminToolsCtrl.js"></script>
+    <script src="app/components/home/homeCtrl.js"></script>
 </body>
+
 </html>
