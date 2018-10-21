@@ -1,0 +1,36 @@
+{
+  "name": "buzzmonitor-admin",
+  "version": "1.0.0",
+  "description": "Challenge of implementing a restructuring of the Buzzmonitor Admin module.",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johannydls/buzzmonitor-admin.git"
+  },
+  "keywords": [
+    "buzzmonitor",
+    "admin",
+    "buzzmonitor-admin"
+  ],
+  "author": "Johanny de Lucena Santos",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/johannydls/buzzmonitor-admin/issues"
+  },
+  "homepage": "https://github.com/johannydls/buzzmonitor-admin#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "express-load": "^1.1.16",
+    "method-override": "^3.0.0",
+    "mongodb": "^3.1.8",
+    "mongoose": "^5.3.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  }
+}
