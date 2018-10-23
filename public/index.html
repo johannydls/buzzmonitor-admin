@@ -8,6 +8,7 @@
     <title>Buzzmonitor</title>
 
     <link rel="stylesheet" href="css/application.css">
+    <link rel="stylesheet" href="assets/angular-omni-bar/isteven-omni-bar.css">
 
     <link rel="shortcut icon" type="image/x-icon" href="//s3.amazonaws.com/bm3assets/assets/others/favicon-0fec60841030d9a6ee786e7a9cf75be901a26535a82adb3caddca78d6411df94.ico" />
     <link rel="shortcut icon" type="image/png" href="//s3.amazonaws.com/bm3assets/assets/others/favicon-16x16-fe9abd4eb3e7af151686b68eda5e8b75a4f4facfe564460ee359563fe44a0838.png"
@@ -26,7 +27,7 @@
 <body>
 
     <toolbar-element></toolbar-element>
-
+    <br><br><br>
     <div>
 
         <div ng-view></div>
@@ -35,11 +36,17 @@
         
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/angular/angular.min.js"></script>
+    <script src="node_modules/angular-resource/angular-resource.min.js"></script>
     <script src="node_modules/angular-route/angular-route.min.js"></script>
     <script src="node_modules/ngstorage/ngStorage.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script src="assets/angular-omni-bar/isteven-omni-bar.js"></script>
 
     <script src="app/app.js"></script>
     <script src="app/partials/partials.js"></script>
+
+    <script src="app/components/admin_tools/adminToolsService.js"></script>
 
     <script src="app/components/admin_tools/adminToolsCtrl.js"></script>
     <script src="app/components/home/homeCtrl.js"></script>
