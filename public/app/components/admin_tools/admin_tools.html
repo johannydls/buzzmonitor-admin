@@ -1,6 +1,6 @@
 <div class="container-inner">
     <div class="brand__BasicForm">
-        <h1>Buzzmonitor Admin</h1>
+        <h1 class="info-title">Buzzmonitor Admin</h1>
         <div class="terms">
 
             <div class="tag-input-ctn input-validation-color-element tokenizer-input">
@@ -14,25 +14,26 @@
     </div>
 </div>
 
-<div class="main-container user-settings">
+<div class="main-container user-settings" style="padding-top:30px !important">
     <div class="settings-wrapper">
         <form class="edit_user">
             <div class="top-menu">
                 <div class="menu-itens-wrapper">
                     <a class="menu-item active" data-ng-class="{active: currentTab('user')}" data-ng-click="setTab('user')">USER</a>
-                    <a class="menu-item" data-ng-class="{active: currentTab('projects')}" data-ng-click="setTab('projects')">PROJECTS
+                    <a class="menu-item" data-ng-class="{active: currentTab('projects')}" data-ng-click="setTab('projects')">PROJECTS</a>
+                    <a class="menu-item" data-ng-class="{active: currentTab('properties')}" data-ng-click="setTab('properties')">PROPERTIES
                         & COLLECT</a>
-
-                    <a class="menu-item" data-ng-class="{active: currentTab('modules')}" data-ng-click="setTab('modules')">MODULES</a>
-
-                    <a class="menu-item" data-ng-class="{active: currentTab('others')}" data-ng-click="setTab('others')">OTHERS</a>
+                    <a class="menu-item" data-ng-class="{active: currentTab('modules')}" data-ng-click="setTab('modules')">MODULES
+                        & OTHERS</a>
                 </div>
             </div>
+
+            <!-- USER TAB -->
 
             <div id="account-section edit-report" class="tab edit-report" ng-show="openTab == 'user'">
 
                 <fieldset class="info">
-                    <label for="user_username">User</label>
+                    <label class="info-title" for="user_username">User</label>
                     <input autocapitalize="off" autocorrect="off" disabled="disabled" id="username" class="input-text"
                         type="text" ng-model="userLoggedIn.user">
                 </fieldset>
@@ -58,31 +59,55 @@
 
             </div>
 
+            <!-- PROJECTS TAB -->
+
             <div id="personal-info" class="tab" ng-show="openTab == 'projects'">
-                
+
                 <div class="responsive-container">
                     <fieldset class="row info large checkbox">
                         <label class="col-md-5">Brands limit *</label>
-                        <input class="col-md-2" type="number" ng-model="userLoggedIn.user_properties.brands_limit" ng-disabled="userLoggedIn.projects_settings.unlimited_projects==true">
+                        <input class="col-md-2" type="number" ng-model="userLoggedIn.user_properties.brands_limit"
+                            ng-disabled="userLoggedIn.projects_settings.unlimited_projects==true">
                         <input class="" type="checkbox" ng-model="userLoggedIn.projects_settings.unlimited_projects">
                         Unlimited projects
                     </fieldset>
                 </div>
 
-                <div class="responsive-container">
-                    <fieldset class="row info large checkbox">
-                        <label class="col-md-5">Collected posts per month limit *</label>
-                        <input class="col-md-2" type="number" ng-model="userLoggedIn.user_properties.posts_limit" ng-disabled="userLoggedIn.projects_settings.unlimited_posts==true">
-                        <input class="" type="checkbox" ng-model="userLoggedIn.projects_settings.unlimited_posts">
-                        Unlimited posts
-                        <button class="btn btn-danger" ng-click="addExtra()">Add extra</button>
-                    </fieldset>
+                <br>
+                <hr><br>
+
+                <div ng-repeat="brand in userLoggedIn.user_data.brands">
+                    <div class="section-title">
+                        {{brand.name | uppercase}}
+                        ({{(brand.collected_posts*100)/userLoggedIn.user_properties.posts_limit | number:1}}%)
+
+                    </div>
+
+                    <div isteven-omni-bar current-value="brand.collected_posts" max-value="userLoggedIn.projects_settings.unlimited_posts ? 0 : userLoggedIn.user_properties.posts_limit"
+                        current-style="loadingCurrent2" container-style="loadingBarStyle1">
+                        <span ng-show="brand.pause_brand==false">Posts collected: {{brand.collected_posts | number}}</span>
+                        <span ng-show="userLoggedIn.projects_settings.unlimited_posts==false && brand.pause_brand==false">of
+                            {{userLoggedIn.user_properties.posts_limit | number}}</span>
+                        <span ng-show="brand.pause_brand==true">COLLECT PAUSED</span>
+                    </div>
+
+                    <input class="" type="checkbox" ng-model="brand.pause_brand">
+                    Pause collect
+
+                    <hr>
                 </div>
+
+            </div>
+
+            <!-- PROPERTIES TAB -->
+
+            <div id="personal-info" class="tab" ng-show="openTab == 'properties'">
 
                 <div class="responsive-container">
                     <fieldset class="row info large checkbox">
                         <label class="col-md-5">Analytics profiles limit *</label>
-                        <input class="col-md-2" type="number" ng-model="userLoggedIn.user_properties.analytics_profiles_limit" ng-disabled="userLoggedIn.projects_settings.unlimited_analytics_profiles==true">
+                        <input class="col-md-2" type="number" ng-model="userLoggedIn.user_properties.analytics_profiles_limit"
+                            ng-disabled="userLoggedIn.projects_settings.unlimited_analytics_profiles==true">
                         <input class="" type="checkbox" ng-model="userLoggedIn.projects_settings.unlimited_analytics_profiles">
                         Unlimited Analytics profiles
                     </fieldset>
@@ -91,95 +116,115 @@
                 <div class="responsive-container">
                     <fieldset class="row info large checkbox">
                         <label class="col-md-5">CRM profiles limit *</label>
-                        <input class="col-md-2" type="number" ng-model="userLoggedIn.user_properties.crm_profiles_limit" ng-disabled="userLoggedIn.projects_settings.unlimited_crm_profiles==true">
+                        <input class="col-md-2" type="number" ng-model="userLoggedIn.user_properties.crm_profiles_limit"
+                            ng-disabled="userLoggedIn.projects_settings.unlimited_crm_profiles==true">
                         <input class="" type="checkbox" ng-model="userLoggedIn.projects_settings.unlimited_crm_profiles">
                         Unlimited CRM profiles
                     </fieldset>
                 </div>
 
-                <br><hr><br>
+                <div class="responsive-container">
+                    <fieldset class="row info large checkbox">
+                        <label class="col-md-5">Crawling quota *</label>
+                        <input class="col-md-2" type="number" ng-model="userLoggedIn.user_properties.crawnling_quota"
+                            ng-disabled="userLoggedIn.projects_settings.unlimited_crawling==true">
+                        <input class="" type="checkbox" ng-model="userLoggedIn.projects_settings.unlimited_crawling">
+                        Unlimited Crowling
+                    </fieldset>
+                </div>
 
-                <div isteven-omni-bar current-value="userLoggedIn.user_data.collected_posts" 
-                    max-value="userLoggedIn.projects_settings.unlimited_posts ? 0 : userLoggedIn.user_properties.posts_limit"
+                <br>
+                <hr><br>
+
+                <div class="responsive-container">
+                    <fieldset class="row info large checkbox">
+                        <label class="col-md-5">Add extra posts collect</label>
+                        <input class="col-md-2" type="number" ng-model="extra_posts">
+                        <button class="btn btn-sm" style="margin-left:10px;" ng-click="addExtra()">Add extra posts</button>
+                    </fieldset>
+                </div>
+
+                <div class="responsive-container">
+                    <fieldset class="row info large checkbox">
+                        <label class="col-md-5">Collected posts per month limit *</label>
+                        <input class="col-md-2" type="number" ng-model="userLoggedIn.user_properties.posts_limit"
+                            ng-disabled="userLoggedIn.projects_settings.unlimited_posts==true">
+                        <input class="" type="checkbox" ng-model="userLoggedIn.projects_settings.unlimited_posts">
+                        Unlimited posts
+
+                    </fieldset>
+                </div>
+
+                <div class="responsive-container">
+                    <fieldset class="row info large checkbox">
+                        <label class="col-md-5">Pause collect *</label>
+                        <input class="" type="checkbox" ng-model="userLoggedIn.projects_settings.unlimited_posts">
+
+                    </fieldset>
+                </div>
+
+                <div isteven-omni-bar current-value="userLoggedPosts" max-value="userLoggedIn.projects_settings.unlimited_posts ? 0 : userLoggedIn.user_properties.posts_limit"
                     current-style="loadingCurrent2" container-style="loadingBarStyle1">
-                    Posts usage: {{userLoggedIn.user_data.collected_posts}} 
-                    <span ng-show="userLoggedIn.projects_settings.unlimited_posts==false">of {{userLoggedIn.user_properties.posts_limit}}</span>
+                    Posts collected: {{userLoggedPosts | number}}
+                    <span ng-show="userLoggedIn.projects_settings.unlimited_posts==false">of
+                        {{userLoggedIn.user_properties.posts_limit | number}}</span>
+                    ({{(userLoggedPosts*100)/userLoggedIn.user_properties.posts_limit | number:1}}%)
                 </div>
 
             </div>
+
+            <!-- MODULES & OTHERS TAB -->
 
             <div id="general-section" class="tab" ng-show="openTab == 'modules'">
-                <div class="section-title">
-                    MODULES
+
+                <div class="responsive-container">
+                    <fieldset class="row info large checkbox">
+                        <label class=" col-md-5">Active Analytics Pro</label>
+                        <input class="" type="checkbox" ng-model="userLoggedIn.modules.active_analytic_pro">
+                    </fieldset>
                 </div>
 
-                <fieldset class="info large checkbox">
-                    <input name="user[add_sentiment_edited_tag]" type="hidden" value="0" autocomplete="off"><input type="checkbox"
-                        value="1" checked="checked" name="user[add_sentiment_edited_tag]" id="user_add_sentiment_edited_tag">
-                    <label for="user_add_sentiment_edited_tag">Add the 'Sentiment_Edited' tag when sentiment is edited</label>
-                </fieldset>
-
-                <fieldset class="info large checkbox">
-                    <input name="user[add_replied_tag]" type="hidden" value="0" autocomplete="off"><input type="checkbox"
-                        value="1" checked="checked" name="user[add_replied_tag]" id="user_add_replied_tag">
-                    <label for="user_add_replied_tag">Add the 'Replied' tag when making a response</label>
-                </fieldset>
-
-                <fieldset class="info large checkbox">
-                    <input name="user[add_sent_email_alert_tag]" type="hidden" value="0" autocomplete="off"><input type="checkbox"
-                        value="1" checked="checked" name="user[add_sent_email_alert_tag]" id="user_add_sent_email_alert_tag">
-                    <label for="user_add_sent_email_alert_tag">Add the 'Email_Alert_Sent' tag after sending email alert</label>
-                </fieldset>
-
-            </div>
-
-            <div id="general-section" class="tab" ng-show="openTab == 'others'">
-                <div class="section-title">
-                    OTHERS
+                <div class="responsive-container">
+                    <fieldset class="row info large checkbox">
+                        <label class=" col-md-5">Active Dashboards</label>
+                        <input class="" type="checkbox" ng-model="userLoggedIn.modules.active_dashboards">
+                    </fieldset>
                 </div>
 
-                <fieldset class="info large checkbox">
-                    <input name="user[add_sentiment_edited_tag]" type="hidden" value="0" autocomplete="off"><input type="checkbox"
-                        value="1" checked="checked" name="user[add_sentiment_edited_tag]" id="user_add_sentiment_edited_tag">
-                    <label for="user_add_sentiment_edited_tag">Add the 'Sentiment_Edited' tag when sentiment is edited</label>
-                </fieldset>
-
-                <fieldset class="info large checkbox">
-                    <input name="user[add_replied_tag]" type="hidden" value="0" autocomplete="off"><input type="checkbox"
-                        value="1" checked="checked" name="user[add_replied_tag]" id="user_add_replied_tag">
-                    <label for="user_add_replied_tag">Add the 'Replied' tag when making a response</label>
-                </fieldset>
-
-                <fieldset class="info large checkbox">
-                    <input name="user[add_sent_email_alert_tag]" type="hidden" value="0" autocomplete="off"><input type="checkbox"
-                        value="1" checked="checked" name="user[add_sent_email_alert_tag]" id="user_add_sent_email_alert_tag">
-                    <label for="user_add_sent_email_alert_tag">Add the 'Email_Alert_Sent' tag after sending email alert</label>
-                </fieldset>
-
-
-
-
-
-            </div>
-
-
-
-            <!--
-            <div class="progress">
-                <div class="bar" ng-style="{width:{{((userLoggedIn.user_data.collected_posts / userLoggedIn.user_properties.collected_posts_per_month_limit) * 100)}} + '%'}">
-                    <!-- show calculated percentage if total amount raised is <= 100% 
-                    <span class="percent" ng-show="((userLoggedIn.user_data.collected_posts / userLoggedIn.user_properties.collected_posts_per_month_limit) * 100) <= 100">
-                        {{((userLoggedIn.user_data.collected_posts /
-                        userLoggedIn.user_properties.collected_posts_per_month_limit) * 100) | number:0}}%
-                    </span>
-                    <!-- show maximum percentage if total amount raised is > 100% 
-                    <span class="percent" ng-show="((userLoggedIn.user_data.collected_posts / userLoggedIn.user_properties.collected_posts_per_month_limit) * 100) > 100">100%</span>
+                <div class="responsive-container">
+                    <fieldset class="row info large checkbox">
+                        <label class=" col-md-5">Active Historical Search</label>
+                        <input class="" type="checkbox" ng-model="userLoggedIn.modules.active_historical_search">
+                    </fieldset>
                 </div>
-            </div>
 
-            <span class="goal">Posts collected: {{userLoggedIn.user_data.collected_posts }} &nbsp;&compfn;&nbsp; Limit:
-                {{userLoggedIn.user_properties.collected_posts_per_month_limit}}
-            </span>-->
+                <br>
+                <hr><br>
+
+                <div class="responsive-container">
+                    <fieldset class="row info large checkbox">
+                        <label class=" col-md-5">Sponsered Facebook posts</label>
+                        <input class="" type="checkbox" ng-model="userLoggedIn.others.sponsered_facebook_posts">
+                    </fieldset>
+                </div>
+
+                <div class="responsive-container">
+                    <fieldset class="row info large checkbox">
+                        <label class="col-md-5">Social New Sources</label>
+                        <select class="select2-container" ng-init="userLoggedIn.userLoggedIn.others.sponsered_facebook_posts"
+                            ng-model="userLoggedIn.others.userLoggedIn.others.sponsered_facebook_posts">
+                            <option class="select2-choice" value=""></option>
+                        </select>
+                        <br>
+
+                        <label class="info-title">No Social News sources selected, which means this account doesn't
+                            monitor social news.</label>
+
+                    </fieldset>
+
+                </div>
+
+            </div>
 
             <div class="hr">
                 <hr>
@@ -191,5 +236,3 @@
         </form>
     </div>
 </div>
-
-{{userLoggedIn}}

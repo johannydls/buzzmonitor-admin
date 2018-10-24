@@ -7,22 +7,27 @@ var users = [
         account_type: 'Unassigned',
         password: '123',
         user_data: {
-            collected_posts: 200000
+            brands: [
+                { name: 'Santander', collected_posts: 200000, pause_brand: false},
+                { name: 'McDonalds', collected_posts: 10000, pause_brand: false},
+                { name: 'Subway', collected_posts: 150000, pause_brand: false}
+            ]
         },
         user_properties: {
-            brands_limit: 0,
+            brands_limit: 3,
             posts_limit: 600000,
             analytics_profiles_limit: 0,
-            crm_profiles_limit: 0
+            crm_profiles_limit: 0,
+            crawnling_quota: 200
         },
         projects_settings: {
-            unlimited_projects: true,
+            unlimited_projects: false,
             unlimited_posts: false,
             pause_collect: false,
             unlimited_crawling: false,
             unlimited_analytics_profiles: false,
             unlimited_crm_profiles: false,
-            crawling_quota: 200
+            unlimited_crawling: false
         },
         modules: {
             active_analytic_pro: true,

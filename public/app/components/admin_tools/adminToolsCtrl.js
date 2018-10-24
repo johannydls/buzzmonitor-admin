@@ -4,6 +4,7 @@ angular.module('buzzmonitor')
     
     $scope.users = [];
     $scope.userLoggedIn = null;
+    $scope.userLoggedPosts = 0;
 
     $scope.user = new adminToolsService();
 
@@ -17,13 +18,17 @@ angular.module('buzzmonitor')
     }
 
     $scope.loadingCurrent2 = {
-        backgroundColor: "orange"
+        backgroundColor: "#db6d14"
     }
 
     let findUsers = () => {
         adminToolsService.query((users) => {
             $scope.users = users;
             $scope.userLoggedIn = users[0];
+
+            $scope.userLoggedIn.user_data.brands.forEach(brand => {
+                $scope.userLoggedPosts += brand.collected_posts;
+            });
         },
         (error) => {
             console.log("Could not get a list of users");
@@ -33,8 +38,11 @@ angular.module('buzzmonitor')
 
     findUsers();
 
+    $scope.extra_posts = 0;
+
     $scope.addExtra = () => {
-        $scope.userLoggedIn.user_properties.posts_limit++;
+        $scope.userLoggedIn.user_properties.posts_limit += $scope.extra_posts;
+        $scope.extra_posts = '';
     }
     
 });
