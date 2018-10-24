@@ -59,23 +59,6 @@ module.exports = (app) => {
         user ? res.json(user) : res.status(404).send('User not found!');
     };
 
-    controller.saveUser = function(req, res) {
-        let user = req.body;
-
-        user = update(user);
-
-        res.json(user);
-    }
-
-    update = (userUpdate) => {
-        users = users.map(function(user) {
-            if(user._id == userUpdate._id) {
-                user = userUpdate;
-            }
-            return user;
-        });
-        return userUpdate;
-    }
     return controller;
     
 }
