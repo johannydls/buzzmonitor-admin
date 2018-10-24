@@ -69,7 +69,7 @@
                         <input class="col-md-2" type="number" ng-model="userLoggedIn.user_properties.brands_limit"
                             ng-disabled="userLoggedIn.projects_settings.unlimited_projects==true">
                         <input class="" type="checkbox" ng-model="userLoggedIn.projects_settings.unlimited_projects">
-                        Unlimited projects
+                        Unlimited brands
                     </fieldset>
                 </div>
 
@@ -158,17 +158,17 @@
                 <div class="responsive-container">
                     <fieldset class="row info large checkbox">
                         <label class="col-md-5">Pause collect *</label>
-                        <input class="" type="checkbox" ng-model="userLoggedIn.projects_settings.unlimited_posts">
-
+                        <input class="" type="checkbox" ng-model="userLoggedIn.projects_settings.pause_collect">
                     </fieldset>
                 </div>
 
                 <div isteven-omni-bar current-value="userLoggedPosts" max-value="userLoggedIn.projects_settings.unlimited_posts ? 0 : userLoggedIn.user_properties.posts_limit"
                     current-style="loadingCurrent2" container-style="loadingBarStyle1">
-                    Posts collected: {{userLoggedPosts | number}}
-                    <span ng-show="userLoggedIn.projects_settings.unlimited_posts==false">of
+                    <span ng-show="userLoggedIn.projects_settings.pause_collect==false">Posts collected: {{userLoggedPosts | number}}</span>
+                    <span ng-show="userLoggedIn.projects_settings.unlimited_posts==false  && userLoggedIn.projects_settings.pause_collect==false">of
                         {{userLoggedIn.user_properties.posts_limit | number}}</span>
-                    ({{(userLoggedPosts*100)/userLoggedIn.user_properties.posts_limit | number:1}}%)
+                    <span ng-show="userLoggedIn.projects_settings.pause_collect==false">({{(userLoggedPosts*100)/userLoggedIn.user_properties.posts_limit | number:1}}%)</span>
+                    <span ng-show="userLoggedIn.projects_settings.pause_collect==true">COLLECT PAUSED</span>
                 </div>
 
             </div>
